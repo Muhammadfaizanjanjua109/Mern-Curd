@@ -1,24 +1,23 @@
 const express = require('express');
-const express = require("express");
-const { default: mongoose } = require("mongoose");
+const { default: mongoose } = require('mongoose');
 const app = express();
-const Hero = require("./api/heros/heros.model");
+const Hero = require('./api/heros/heros.model');
 
 app.use(express.json());
 
 mongoose
-  .connect("mongodb://localhost:27017/test", {
+  .connect('mongodb://localhost:27017/test', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Connection is Succesful");
+    console.log('Connection is Succesful');
   })
   .catch((e) => {
-    console.log("No Connection", e);
+    console.log('No Connection', e);
   });
 
-app.post("/Students", (req, res) => {
+app.post('/Students', (req, res) => {
   const user = new Hero(req.body);
 
   user
@@ -30,7 +29,7 @@ app.post("/Students", (req, res) => {
       res.status(400).send(e);
     });
 });
-app.get("/", async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const GHero = await Hero.find();
     res.send(GHero);
@@ -39,7 +38,7 @@ app.get("/", async (req, res) => {
     res.send(error);
   }
 });
-app.delete("/:id", async (req, res) => {
+app.delete('/:id', async (req, res) => {
   try {
     const _id = req.params.id;
     const GHero = await Hero.findOneAndDelete(_id);
