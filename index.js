@@ -51,6 +51,16 @@ app.delete('/:id', async (req, res) => {
     res.send(error);
   }
 });
+app.patch('/:id', async (req, res) => {
+  console.log(req.body);
+  const id = req.params.id;
+  try {
+    const a = await Hero.findByIdAndUpdate(id, req.body);
+    res.status(200).send(a);
+  } catch (error) {
+    console.log(error);
+  }
+});
 app.listen(5000, (req, res) => {
   console.log(`Server is running on port.`);
 });
